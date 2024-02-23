@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Form</title>
+</head>
+<body>
+
+    <h1>Translation Form</h1>
+
+    <form id="translationForm">
+        <label for="englishText">Enter English Text:</label>
+        <input type="text" id="englishText" name="englishText" required>
+        <button type="button" onclick="translateText()">Translate</button>
+    </form>
+
+    <div id="translationResult"></div>
+
+    <script>
+        function translateText() {
+            // Get the English text from the input field
+            const englishText = document.getElementById('englishText').value;
+
+            // Make a request to your backend API for translation
+            fetch('https://your-backend-api.com/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: englishText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the translation result
+                document.getElementById('translationResult').innerText = `Translated Text: ${data.translatedText}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>
